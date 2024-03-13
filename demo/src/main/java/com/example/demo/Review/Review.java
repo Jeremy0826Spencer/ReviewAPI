@@ -1,14 +1,15 @@
 package com.example.demo.Review;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(
-        name = "Review"
-)
+@Table(name = "review")
+@Data // Generates getters, setters, toString, equals, and hashCode methods
 public class Review {
     @Id
     @GeneratedValue(
@@ -18,6 +19,7 @@ public class Review {
     private Long reviewUserId;
     private Long reviewLocationId;
     private String reviewText;
+    private int starRating;
     @CreationTimestamp
     private LocalDate reviewDate;
 
@@ -35,6 +37,14 @@ public class Review {
 
     public void setReviewId(Long reviewId) {
         this.reviewId = reviewId;
+    }
+
+    public int getStarRating() {
+        return starRating;
+    }
+
+    public void setStarRating(int starRating) {
+        this.starRating = starRating;
     }
 
     public LocalDate getReviewDate() {
@@ -77,12 +87,13 @@ public class Review {
         this.reviewDate = reviewDate;
     }
 
-    public Review(Long reviewId, Long reviewUserId, Long reviewLocationId, String reviewText, LocalDate reviewDate) {
+    public Review(Long reviewId, Long reviewUserId, Long reviewLocationId, String reviewText, LocalDate reviewDate, int starRating) {
         this.reviewId = reviewId;
         this.reviewUserId = reviewUserId;
         this.reviewLocationId = reviewLocationId;
         this.reviewText = reviewText;
         this.reviewDate = reviewDate;
+        this.starRating = starRating;
     }
 
     public Review(Long reviewUserId, String reviewText, LocalDate reviewDate) {

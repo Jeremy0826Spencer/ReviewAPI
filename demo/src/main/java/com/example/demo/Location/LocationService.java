@@ -29,6 +29,10 @@ public class LocationService {
         return this.locationRepository.findById(id);
     }
 
+    public List<Location> getLocationsByCity(String city) {
+        return this.locationRepository.findByCity(city);
+    }
+
     public Location updateLocation(Long locationId, Location updatedLocation) throws LocationNotFoundException {
         Optional<Location> optionalLocation = this.locationRepository.findById(locationId);
         if (optionalLocation.isPresent()) {
@@ -39,4 +43,20 @@ public class LocationService {
             throw new LocationNotFoundException("Review with ID " + locationId + " not found");
         }
     }
+
+    public Location findMostReviewedLocationByCity(String city) {
+        Optional<Location> mostReviewedLocationOpt = this.locationRepository.findMostReviewedLocationInCity(city);
+        return mostReviewedLocationOpt.orElse(null);
+    }
+
+
+    public List<Location> getLocationsByName(String name) {
+        return this.locationRepository.findByLocationName(name);
+    }
+
+    public List<Location> findByCityAndLocationName(String city, String locationName) {
+        return this.locationRepository.findByCityAndLocationName(city, locationName);
+    }
+
+
 }

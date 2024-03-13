@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(
-        path = {"/api/v1/review"}
+        path = {"/public/api/v1/review"}
 )
 public class ReviewController {
     private final ReviewService reviewService;
@@ -36,10 +36,15 @@ public class ReviewController {
         }
     }
 
-    @GetMapping({"/{id}"})
+    @GetMapping({"/byReviewId/{id}"})
     public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
         Optional<Review> itemOptional = this.reviewService.getReviewById(id);
         return itemOptional.isPresent() ? ResponseEntity.ok((Review)itemOptional.get()) : ResponseEntity.notFound().build();
+    }
+    @GetMapping("/byLocation/{locationId}")
+    public ResponseEntity<List<Review>> getReviewsByLocationId(@PathVariable Long locationId) {
+        List<Review> reviews = reviewService.getReviewsByLocationId(locationId);
+        return ResponseEntity.ok(reviews);
     }
 
     @PutMapping({"/{reviewId}"})

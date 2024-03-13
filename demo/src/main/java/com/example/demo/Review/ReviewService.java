@@ -35,4 +35,8 @@ public class ReviewService {
             throw new ReviewNotFoundException("Review with ID " + reviewId + " not found");
         }
     }
+
+    public List<Review> getReviewsByLocationId(Long reviewLocationId) {
+        return reviewRepository.findByReviewLocationId(reviewLocationId);
+    }
 }
